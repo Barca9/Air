@@ -1,0 +1,8 @@
+{
+  "port": 5000,
+  "jwtSecret": "airTicket",
+
+  "mongoUri": "mongodb+srv://admin:zevs999@cluster0.2hvem.mongodb.net/app?retryWrites=true&w=majority"
+
+
+}

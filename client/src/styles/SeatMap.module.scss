@@ -1,0 +1,35 @@
+.avatarWrapper{
+  display: flex;
+}
+
+.wrapper{
+  display: inline-flex;
+}
+
+.parentWrapper{
+  width: fit-content;
+}
+
+.available{
+  background-color: crimson;
+  font-size: 16px;
+  margin: 1em;
+}
+
+.booked{
+  background-color: darkorange;
+  margin: 1em;
+  font-size: 25px
+}
+
+.businessClass{
+  background-color: lightgreen;
+  margin: 1em;
+  font-size: 16px
+}
+
+.economyClass{
+  background-color: lightsalmon;
+  margin: 1em;
+  font-size: 16px
+}

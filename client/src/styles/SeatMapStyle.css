@@ -1,0 +1,45 @@
+.avatarIcon{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+}
+
+.wrapper{
+    display: inline-flex;
+
+}
+
+.parentWrapper{
+    width: fit-content;
+}
+
+.avatarWrapper{
+    display: flex;
+}
+
+.economyClass{
+    background-color: lightgreen!important;
+    font-size: 16px;
+    margin: 1em;
+}
+
+.businessClass{
+    background-color: lightcoral!important;
+    margin: 1em;
+    font-size: 16px
+}
+
+.booked{
+    background-color: darkorange!important;
+    margin: 1em;
+    font-size: 16px
+}
+
+.linkStyle{
+    color: white!important;
+}
+
+
+
