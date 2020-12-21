@@ -39,9 +39,7 @@ export const useRoutes = isAuthenticated => {   //флаг о решистрац
                 <Route path="/home/seatMap/:id">
                     <SeatMapPage/>
                 </Route>
-                {/*<Route path="/home/seatMap/seatMapCreate">
-                    <SeatMapPage/>
-                </Route>*/}
+
                 <Route path="/booked/details/:id/:k">
                     <BookedPage/>
                 </Route>

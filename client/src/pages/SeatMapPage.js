@@ -5,25 +5,20 @@ import '../styles/SeatMapStyle.css';
 import Avatar from "@material-ui/core/Avatar";
 import Tooltip from "@material-ui/core/Tooltip";
 
-
-
 export const SeatMapPage = () => {
     const flightId = useParams().id
     const {request,error,clearError} = useHttp()
     const [flight, setFlight] = useState({})
     const [seatMap, setSeatMap] = useState([])
 
-
     const getFlight = useCallback(async () => {
         try {
             const fetched = await request(`/api/home/${flightId}`, 'GET', null, {})
             setFlight(fetched)
-
         } catch (e) {
             console.log(e)
         }
     }, [request, flightId])
-
 
     const getSeatMap = useCallback(async () => {
         try {
@@ -44,18 +39,18 @@ export const SeatMapPage = () => {
 
 
     let seats = [
-        {k: 'A1', v: true},{k: 'A2', v: false},{k: 'A3', v: true},
-        {k: 'A4', v: true},{k: 'A5', v: true},{k: 'A6', v: true},
-        {k: 'B1', v: true},{k: 'B2', v: true},{k: 'B3', v: true},
-        {k: 'B4', v: true},{k: 'B5', v: true},{k: 'B6', v: true},
-        {k: 'C1', v: false},{k: 'C2', v: true},{k: 'C3', v: true},
-        {k: 'C4', v: true},{k: 'C5', v: true},{k: 'C6', v: true},
-        {k: 'D1', v: true},{k: 'D2', v: true},{k: 'D3', v: true},
-        {k: 'D4', v: true},{k: 'D5', v: true},{k: 'D6', v: true},
-        {k: 'E1', v: true},{k: 'E2', v: true},{k: 'E3', v: true},
-        {k: 'E4', v: true},{k: 'E5', v: true},{k: 'E6', v: true},
-        {k: 'F1', v: true},{k: 'F2', v: true},{k: 'F3', v: true},
-        {k: 'F4', v: true},{k: 'F5', v: true},{k: 'F6', v: true}]
+        {placeNumber: 'A1', value: true},{placeNumber: 'A2', value: false},{placeNumber: 'A3', value: true},
+        {placeNumber: 'A4', value: true},{placeNumber: 'A5', value: true},{placeNumber: 'A6', value: true},
+        {placeNumber: 'B1', value: true},{placeNumber: 'B2', value: true},{placeNumber: 'B3', value: true},
+        {placeNumber: 'B4', value: true},{placeNumber: 'B5', value: true},{placeNumber: 'B6', value: true},
+        {placeNumber: 'C1', value: false},{placeNumber: 'C2', value: true},{placeNumber: 'C3', value: true},
+        {placeNumber: 'C4', value: true},{placeNumber: 'C5', value: true},{placeNumber: 'C6', value: true},
+        {placeNumber: 'D1', value: true},{placeNumber: 'D2', value: true},{placeNumber: 'D3', value: true},
+        {placeNumber: 'D4', value: true},{placeNumber: 'D5', value: true},{placeNumber: 'D6', value: true},
+        {placeNumber: 'E1', value: true},{placeNumber: 'E2', value: true},{placeNumber: 'E3', value: true},
+        {placeNumber: 'E4', value: true},{placeNumber: 'E5', value: true},{placeNumber: 'E6', value: true},
+        {placeNumber: 'F1', value: true},{placeNumber: 'F2', value: true},{placeNumber: 'F3', value: true},
+        {placeNumber: 'F4', value: true},{placeNumber: 'F5', value: true},{placeNumber: 'F6', value: true}]
 
 
 
@@ -91,14 +86,14 @@ export const SeatMapPage = () => {
                 return (
                     <Fragment key={item}>
                     <span>
-                        {item.k.charAt(1) === '4' ?
+                        {item.placeNumber.charAt(1) === '4' ?
                             <span>&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;</span> :''}
 
                             <span className="wrapper">
-                                <Tooltip title={item.k} className="toolTip" placement="right">
-                                    <Avatar  style={{cursor:pointerOrNot(item.v)}}
-                                             variant="square" className={colorCode(item.k, item.v)}>
-                                        <Link className="linkStyle" to={`/booked/details/${flight._id}/${item.k}`}>{item.k}</Link>
+                                <Tooltip title={item.placeNumber} className="toolTip" placement="right">
+                                    <Avatar  style={{cursor:pointerOrNot(item.value)}}
+                                             variant="square" className={colorCode(item.placeNumber, item.value)}>
+                                        <Link className="linkStyle" to={`/booked/details/${flight._id}/${item.placeNumber}`}>{item.placeNumber}</Link>
                                     </Avatar>
                                 </Tooltip>
                              </span>

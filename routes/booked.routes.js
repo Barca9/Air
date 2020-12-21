@@ -4,12 +4,10 @@ const Booking = require('../models/Booking')
 const router = Router()
 const {validationResult} = require('express-validator')
 
-router.get('/details/:id/:k', async (req, res) => {
+router.get('/details/:id', async (req, res) => {
     try {
         const flight = await Flight.findById(req.params.id).populate({ path: 'airportDeparture'}).populate({ path: 'airportDeparture'})
-        const numberP = req.params.k
-        res.json({flight, numberP})
-
+        res.json({flight})
     } catch (e) {}
 })
 

@@ -2,38 +2,35 @@ import React, {useCallback, useEffect, useState} from 'react'
 import {useHttp} from "../hooks/http.hook";
 import {useParams} from 'react-router-dom'
 import {useMessage} from "../hooks/message.hook";
-
-
+import {emptyString} from "react-select/src/utils";
 
 export const BookedPage = ()=>{
     const message = useMessage()
     const {request,error,clearError, loading} = useHttp()
     const[flight, setFlight] = useState()
-    const[placeNumber,setPlaceNumber] = useState()
-    const flightPar = useParams().id
-    const numberPar = useParams().k
+    const flightId = useParams().id
+    const placeNumber = useParams().placeNumber
     const [form, setForm] = useState({
-        firstName: '', lastName: '', phone: '', email:''
+        firstName: emptyString(), lastName: emptyString(), phone: emptyString(), email: emptyString()
     })
 
 
-    const getFlightAndNumber = useCallback(async ()=> {
+    const getFlightResponse = useCallback(async ()=> {
         try{
-            const fetched = await request(`/api/booked/details/${flightPar}/${numberPar}`, 'GET', null,{})
-            setFlight(fetched.flight)
-            setPlaceNumber(fetched.numberP)
-            message(fetched.message)
+            const response = await request(`/api/booked/details/${flightId}`, 'GET', null,{})
+            setFlight(response)
+            message(response.message)
 
         }catch (e){
             e.message()
             console.log(e)
         }
-    },[request,message,flightPar,numberPar])
+    },[request,message,flightId])
 
     useEffect(() => {
-        getFlightAndNumber()
+        getFlightResponse()
         clearError()
-    }, [getFlightAndNumber,clearError,error])
+    }, [getFlightResponse,clearError,error])
 
     const changeHandler = event => {
         setForm({...form,[event.target.name]: event.target.value})
@@ -91,6 +88,7 @@ export const BookedPage = ()=>{
                         disabled={loading}>Забронировать
                 </button>
             </form>
+            <h1>{numberPar}</h1>
         </div>
 
    )
