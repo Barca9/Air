@@ -10,21 +10,21 @@ app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/airport', require('./routes/airport.routes'))
 app.use('/api/flight', require('./routes/flight.routes'))
 app.use('/api/home', require('./routes/home.routes'))
-app.use('/api/booked', require('./routes/booked.routes'))
+app.use('/api/booked', require('./routes/booking.routes'))
 
 
 //регистрируем роуты, которые по разному обрабатывают апи запросы с фронта
 const PORT = config.get('port') || 5000
 
-async function start(){
+async function start() {
     try {
-    await mongoose.connect(config.get('mongoUri'),{
-        useNewUrlParser: true,
-        useUnifiedTopology: true,   //параметры для коннекта
-        useCreateIndex: true
-    })
-        app.listen(PORT,() => console.log(`started on port ${PORT}..!!`))
-    }catch(e){
+        await mongoose.connect(config.get('mongoUri'), {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,   //параметры для коннекта
+            useCreateIndex: true
+        })
+        app.listen(PORT, () => console.log(`started on port ${PORT}..!!`))
+    } catch (e) {
         console.log('Server Error', e.message)
         process.exit(1)
     }

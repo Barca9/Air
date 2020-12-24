@@ -3,42 +3,38 @@ import {useHttp} from "../hooks/http.hook";
 
 import {useMessage} from "../hooks/message.hook";
 
-export const BookingShowPage = ()=>{
+export const BookingShowPage = () => {
 
     const message = useMessage()
-    const {request,loading,error,clearError}= useHttp()
+    const {request, loading, error, clearError} = useHttp()
     const [bookings, setBookings] = useState()
 
-    const getBookings = useCallback(async ()=> {
-        try{
-            const fetched = await request('/api/booked/all', 'GET', null,{})
-            setBookings(fetched)
-
-        }catch (e){
+    const getBookings = useCallback(async () => {
+        try {
+            const response = await request('/api/booked/all', 'GET', null, {})
+            setBookings(response)
+        } catch (e) {
             e.message()
             console.log(e)
         }
-    },[request])
-
+    }, [request])
 
     const removeHandler = async (id) => {
         try {
             await request(`/api/booked/${id}`, 'DELETE', null, {})
             getBookings()
-
         } catch (e) {
-
             console.log(e)
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getBookings()
         clearError()
         message(error)
-    },[getBookings,clearError,message,error])
+    }, [getBookings, clearError, message, error])
 
-    return(
+    return (
         <div>
             <table className="highlight">
                 <thead>
@@ -49,30 +45,31 @@ export const BookingShowPage = ()=>{
                     <th>Фамилия</th>
                     <th>Телефон</th>
                     <th>Почта</th>
-                    <th> </th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                {bookings!==undefined?(
+                {bookings !== undefined ? (
                     bookings.map((book) => {
                         return (
                             <tr key={book._id}>
                                 <td>{book.flight.number}</td>
-                                <td >{book.placeNumber}</td>
-                                <td >{book.firstName}</td>
-                                <td >{book.lastName}</td>
-                                <td >{book.phone}</td>
-                                <td >{book.email}</td>
+                                <td>{book.placeNumber}</td>
+                                <td>{book.firstName}</td>
+                                <td>{book.lastName}</td>
+                                <td>{book.phone}</td>
+                                <td>{book.email}</td>
                                 <td>
                                     <button className="waves-effect blue btn"
                                             disabled={loading}
-                                            onClick= {() => removeHandler(book._id)}>
+                                            onClick={() => removeHandler(book._id)}>
                                         Удалить
                                     </button>
                                 </td>
 
                             </tr>
-                        ) })) : (" ")
+                        )
+                    })) : (" ")
                 }
                 </tbody>
             </table>

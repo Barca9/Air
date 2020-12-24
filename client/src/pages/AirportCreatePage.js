@@ -4,30 +4,27 @@ import {useHttp} from "../hooks/http.hook";
 
 export const AirportCreatePage = () => {
     const message = useMessage()
-    const {loading,request,error,clearError} = useHttp()
-    const [form, setForm] = useState({
-        name: '', country: '', city: ''
-    })
+    const {loading, request, error, clearError} = useHttp()
+    const [form, setForm] = useState({name: '', country: '', city: ''})
 
     const createHandler = async () => {
         try {
             const data = await request('/api/airport/create', 'POST', {...form})
             message(data.message)
-        }catch (e) {
+        } catch (e) {
             message(error)
         }
     }
     const changeHandler = event => {
-        setForm({...form,[event.target.name]: event.target.value})
+        setForm({...form, [event.target.name]: event.target.value})
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         message(error)
         clearError()
-    },[error,message,clearError])
+    }, [error, message, clearError])
 
     return (
-
         <div className="row">
             <h2>Добавить аэропорт</h2>
             <form className="col s12">
@@ -36,7 +33,7 @@ export const AirportCreatePage = () => {
                         <input id="name"
                                type="text"
                                name="name"
-                               onChange = {changeHandler}/>
+                               onChange={changeHandler}/>
                         <label htmlFor="input_text">Название аэропорта</label>
                     </div>
                 </div>
@@ -45,7 +42,7 @@ export const AirportCreatePage = () => {
                         <input id="country"
                                type="text"
                                name="country"
-                               onChange = {changeHandler}/>
+                               onChange={changeHandler}/>
                         <label htmlFor="input_text">Страна</label>
                     </div>
                 </div>
@@ -54,13 +51,13 @@ export const AirportCreatePage = () => {
                         <input id="city"
                                type="text"
                                name="city"
-                               onChange = {changeHandler}/>
+                               onChange={changeHandler}/>
                         <label htmlFor="input_text">Город</label>
                     </div>
                 </div>
                 <button className="waves-effect blue btn"
                         onClick={createHandler}
-                        disabled = {loading}>
+                        disabled={loading}>
                     Добавить
                 </button>
             </form>

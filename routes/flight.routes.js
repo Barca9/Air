@@ -1,27 +1,27 @@
 const {Router} = require('express')
 const Flight = require('../models/Flight')
 const router = Router()
-
 const {validationResult} = require('express-validator')
 
-//  /api/flight
 router.post('/create',
     [],
     async (req, res) => {
         try {
             const errors = validationResult(req)
-            if(!errors.isEmpty()){
+            if (!errors.isEmpty()) {
                 return res.status(400).json({
-                    errors:errors.array(),
+                    errors: errors.array(),
                     message: 'Некорректные данные'
                 })
             }
-            const {number, departureDate,arrivalDate,airportDeparture, airportArrival,priceEClass,priceBClass} = req.body
+            const {number, departureDate, arrivalDate, airportDeparture, airportArrival, priceEClass, priceBClass} = req.body
 
-            const flight = new Flight({number,departureDate,arrivalDate ,airportDeparture, airportArrival,priceEClass, priceBClass})
+            const flight = new Flight({
+                number, departureDate, arrivalDate, airportDeparture, airportArrival, priceEClass,
+                priceBClass
+            })
 
             await flight.save()
-
             res.status(201).json({message: 'Рейс добавлен'})
 
         } catch (e) {
@@ -32,8 +32,10 @@ router.post('/create',
 
 router.get('/all', async (req, res) => {
     try {
-        const flights = await Flight.find().populate({ path: 'airportDeparture', select: 'name' }).
-        populate({ path: 'airportArrival', select: 'name' })
+        const flights = await Flight.find().populate({
+            path: 'airportDeparture',
+            select: 'name'
+        }).populate({path: 'airportArrival', select: 'name'})
         res.json(flights)
 
     } catch (e) {
@@ -42,8 +44,7 @@ router.get('/all', async (req, res) => {
     }
 })
 
-//  /api/flight/delete
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function (req, res, next) {
     Flight.findByIdAndRemove(req.params.id, req.body, function (err, post) {
         if (err) return next(err);
         res.json(post);

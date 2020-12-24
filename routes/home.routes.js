@@ -1,9 +1,7 @@
 const {Router} = require('express')
 const Flight = require('../models/Flight')
-const Booking = require('../models/Booking')
 const router = Router()
 
-//  /api/home/find
 router.post('/find', async (req, res) => {
     try {
         const {firstDate, secondDate, selectAirportDeparture, selectAirportArrival} = req.body
@@ -18,7 +16,6 @@ router.post('/find', async (req, res) => {
         if (!flights) {
             return res.status(400).json({message: 'Рейс не найден'})
         }
-
         res.json(flights)
 
     } catch (e) {
@@ -31,7 +28,6 @@ router.get('/:id', async (req, res) => {
     try {
         const flightForSeatMap = await Flight.findById(req.params.id)
         res.json(flightForSeatMap)
-
     } catch (e) {
         res.status(500).json({message: 'Что-то пошло не так, попробуйте снова в роуте по ID'})
     }
@@ -75,6 +71,5 @@ router.get('/:id', async (req, res) => {
         console.log(e)
     }
 })*/
-
 
 module.exports = router

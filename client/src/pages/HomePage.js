@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useMessage} from "../hooks/message.hook";
 import {useHttp} from "../hooks/http.hook";
-
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
@@ -21,22 +20,19 @@ export const HomePage = () => {
     const [dateFirst, setDateFirst] = useState(new Date());
     const [dateSecond, setDateSecond] = useState(new Date());
 
-
-    const fetchAirports = useCallback(async () => {
+    const getAirports = useCallback(async () => {
         try {
-            const fetched = await request('/api/airport/all', 'GET', null, {})
-            setAirports(fetched)
+            const response = await request('/api/airport/all', 'GET', null, {})
+            setAirports(response)
         } catch (e) {
             e.message()
-
         }
     }, [request])
 
     useEffect(() => {
-        fetchAirports()
+        getAirports()
         message(error)
-    }, [fetchAirports, message, error])
-
+    }, [getAirports, message, error])
 
     const findHandler = async () => {
         try {
@@ -142,8 +138,10 @@ export const HomePage = () => {
                                 <div className="col s12">
                                     <div className="card blue-grey darken-1">
                                         <div className="card-content white-text">
-                                            <span className="card-title">Время вылета: {(new Date(flight.departureDate)).toLocaleTimeString()}</span>
-                                            <span className="card-title">Время прилёта: {(new Date(flight.arrivalDate)).toLocaleTimeString()}</span>
+                                            <span
+                                                className="card-title">Время вылета: {(new Date(flight.departureDate)).toLocaleTimeString()}</span>
+                                            <span
+                                                className="card-title">Время прилёта: {(new Date(flight.arrivalDate)).toLocaleTimeString()}</span>
                                             <p> {flight.airportDeparture.name} - {flight.airportArrival.name}</p>
                                             <p>Цена за место в бизнес-классе: {flight.priceBClass}</p>
                                             <p>Цена за место в эконом-классе: {flight.priceEClass}</p>

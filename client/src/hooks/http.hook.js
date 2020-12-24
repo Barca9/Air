@@ -6,9 +6,9 @@ export const useHttp = () => {
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         setLoading(true)
         try {
-            if(body){
-                body=JSON.stringify(body)    //приводим к строке, для отправки данных
-                headers['Content-Type']='application/json' //мы должны явно указать серверу что передаём по сети json
+            if (body) {
+                body = JSON.stringify(body)    //приводим к строке, для отправки данных
+                headers['Content-Type'] = 'application/json' //мы должны явно указать серверу что передаём по сети json
             }
             const response = await fetch(url, {method, body, headers})
             const data = await response.json()
@@ -25,6 +25,6 @@ export const useHttp = () => {
         }
     }, [])
 
-    const clearError = useCallback(()=> setError(null),[])
+    const clearError = useCallback(() => setError(null), [])
     return {loading, request, error, clearError}
 }

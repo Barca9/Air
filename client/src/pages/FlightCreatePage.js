@@ -1,10 +1,8 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useMessage} from "../hooks/message.hook";
 import {useHttp} from "../hooks/http.hook";
-
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
@@ -14,43 +12,38 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-
 export const FlightCreatePage = () => {
-
     const message = useMessage()
     const [airports, setAirports] = useState()
     const {loading, request, error} = useHttp()
     const [form, setForm] = useState({
-        number: '', departureDate: '',
-        arrivalDate: '', airportDeparture: '', airportArrival: '', priceBClass: '',priceEClass:''
+        number: '', departureDate: '', arrivalDate: '', airportDeparture: '', airportArrival: ''
+        , priceBClass: '', priceEClass: ''
     })
-    let [selectedDateDeparture, setSelectedDateDeparture] = useState(new Date());
-    let [selectedDateArrival, setSelectedDateArrival] = useState(new Date());
+    const [selectedDateDeparture, setSelectedDateDeparture] = useState(new Date());
+    const [selectedDateArrival, setSelectedDateArrival] = useState(new Date());
 
-
-    const fetchAirports = useCallback(async () => {
+    const getAirports = useCallback(async () => {
         try {
-            const fetched = await request('/api/airport/all', 'GET', null, {})
-            setAirports(fetched)
+            const response = await request('/api/airport/all', 'GET', null, {})
+            setAirports(response)
         } catch (e) {
-
             e.message()
         }
     }, [request])
 
     useEffect(() => {
-        fetchAirports()
+        getAirports()
         message(error)
-    }, [fetchAirports, message, error])
-
+    }, [getAirports, message, error])
 
     const createHandler = async () => {
         try {
             const data = await request('/api/flight/create', 'POST', {...form})
             message(data.message)
-            console.log(data)
         } catch (e) {
             message(error)
+            console.log(e)
         }
     }
 
@@ -61,7 +54,6 @@ export const FlightCreatePage = () => {
     const dateProcessorDeparture = (date, name) => {
         setSelectedDateDeparture(date)
         setForm({...form, [name]: date})
-
     }
 
     const dateProcessorArrival = (date, name) => {
@@ -107,18 +99,18 @@ export const FlightCreatePage = () => {
                                 }}
                             />
                         </Grid>
-                            <Grid container justify="space-around">
-                                <KeyboardTimePicker
-                                    margin="normal"
-                                    id="departureDate"
-                                    ampm={false}
-                                    label="Время отбытия"
-                                    value={selectedDateDeparture}
-                                    onChange={(date) => dateProcessorDeparture(date, "departureDate")}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change time',
-                                    }}
-                                />
+                        <Grid container justify="space-around">
+                            <KeyboardTimePicker
+                                margin="normal"
+                                id="departureDate"
+                                ampm={false}
+                                label="Время отбытия"
+                                value={selectedDateDeparture}
+                                onChange={(date) => dateProcessorDeparture(date, "departureDate")}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change time',
+                                }}
+                            />
 
                             <KeyboardTimePicker
                                 margin="normal"

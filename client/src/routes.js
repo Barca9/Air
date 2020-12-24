@@ -6,7 +6,7 @@ import {AuthPage} from "./pages/AuthPage";
 import {AirportShowPage} from "./pages/AirportShowPage";
 import {HomePage} from "./pages/HomePage";
 import {SeatMapPage} from "./pages/SeatMapPage";
-import {BookedPage} from "./pages/BookedPage";
+import {BookingPage} from "./pages/BookingPage";
 import {FlightShowPage} from "./pages/FlightShowPage";
 import {BookingShowPage} from "./pages/BookingShowPage";
 
@@ -18,7 +18,7 @@ export const useRoutes = isAuthenticated => {   //флаг о решистрац
                 <Route path="/auth" exact>
                     <AuthPage/>
                 </Route>
-                <Route path="/airport/create" >
+                <Route path="/airport/create">
                     <AirportCreatePage/>
                 </Route>
                 <Route path="/airport/all">
@@ -27,7 +27,7 @@ export const useRoutes = isAuthenticated => {   //флаг о решистрац
                 <Route path="/flight/all">
                     <FlightShowPage/>
                 </Route>
-                <Route path="/flight/create" >
+                <Route path="/flight/create">
                     <FlightCreatePage/>
                 </Route>
                 <Route path="/booked/all">
@@ -39,9 +39,8 @@ export const useRoutes = isAuthenticated => {   //флаг о решистрац
                 <Route path="/home/seatMap/:id">
                     <SeatMapPage/>
                 </Route>
-
                 <Route path="/booked/details/:id/:k">
-                    <BookedPage/>
+                    <BookingPage/>
                 </Route>
                 <Redirect to="/home/find"/>
             </Switch>

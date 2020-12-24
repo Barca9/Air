@@ -1,43 +1,39 @@
-const{Schema,model,Types} = require('mongoose')
-
+const {Schema, model, Types} = require('mongoose')
 
 const flightSchema = new Schema({
     number: {
-        type:String,
-        required:true,
-        unique:true
+        type: String,
+        required: true,
+        unique: true
     },
 
     departureDate: {
         type: Date,
-        required:true,
-        unique: false
+        required: true,
     },
 
-    arrivalDate:{
+    arrivalDate: {
         type: Date,
-        required:true,
-        unique: false
+        required: true,
     },
 
-    airportDeparture:{
-        type:Types.ObjectId,
-        ref:'Airport'
+    airportDeparture: {
+        type: Types.ObjectId,
+        ref: 'Airport'
     },
 
-    airportArrival:{
-        type:Types.ObjectId,
-        ref:'Airport'
+    airportArrival: {
+        type: Types.ObjectId,
+        ref: 'Airport'
     },
 
-    priceBClass:{
+    priceBClass: {
         type: String
     },
 
-    priceEClass:{
+    priceEClass: {
         type: String
     }
-
 })
 
-module.exports = model('Flight',flightSchema)
+module.exports = model('Flight', flightSchema)
